@@ -36,7 +36,7 @@
     ],
     "repository": {
         "type": "git",
-        "url": "https://github.com/sergenolmez/guardrails-js"
+        "url": "git+https://github.com/sergenolmez/guardrails-js.git"
     },
     "homepage": "https://github.com/sergenolmez/guardrails-js#readme",
     "bugs": {
