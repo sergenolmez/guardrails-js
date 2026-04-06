@@ -29,10 +29,21 @@
     },
     "keywords": [
         "validation",
-        "runtime",
+        "runtime-validation",
         "guard",
         "typescript",
-        "javascript"
+        "javascript",
+        "validate",
+        "check-undefined",
+        "null-check",
+        "type-check",
+        "defensive-programming",
+        "env-validation",
+        "input-validation",
+        "runtime-type-check",
+        "safe-access",
+        "assert",
+        "invariant"
     ],
     "repository": {
         "type": "git",
