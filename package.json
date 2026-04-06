@@ -1,6 +1,6 @@
 {
     "name": "guardrails-js",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "description": "Inline runtime validation for JavaScript and TypeScript",
     "author": "Sergen Olmez",
     "main": "dist/index.js",
