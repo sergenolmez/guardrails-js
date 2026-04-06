@@ -3,8 +3,7 @@ export type GuardType =
     | "number"
     | "boolean"
     | "object"
-    | "array"
-    | "function";
+    | "array";
 
 export interface BaseGuardOptions<T = unknown> {
     required?: boolean;

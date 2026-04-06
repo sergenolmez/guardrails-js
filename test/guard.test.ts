@@ -129,4 +129,56 @@ describe("guard", () => {
             });
         });
     });
+
+    describe("edge cases", () => {
+        it("throws on NaN", () => {
+            expect(() => guard.number(NaN)).toThrowError(/Expected a valid number, got NaN/);
+        });
+
+        it("throws on Infinity", () => {
+            expect(() => guard.number(Infinity)).toThrowError(/Expected a finite number/);
+            expect(() => guard.number(-Infinity)).toThrowError(/Expected a finite number/);
+        });
+
+        it("throws when null is passed with required: true", () => {
+            expect(() => guard(null, { required: true })).toThrow(GuardError);
+        });
+
+        it("handles empty string correctly", () => {
+            expect(guard.string("")).toBe("");
+            expect(() => guard.string("", { minLength: 1 })).toThrowError(/Expected length to be at least 1/);
+        });
+
+        it("default takes priority over required", () => {
+            expect(guard(undefined, { required: true, default: "fallback" })).toBe("fallback");
+        });
+
+        it("wraps custom callback exceptions into GuardError", () => {
+            expect(() =>
+                guard("test", {
+                    custom: () => { throw new Error("boom"); }
+                })
+            ).toThrow(GuardError);
+        });
+
+        it("preserves GuardError thrown from custom callback", () => {
+            expect(() =>
+                guard("test", {
+                    custom: () => { throw new GuardError("custom guard"); }
+                })
+            ).toThrowError("custom guard");
+        });
+
+        it("returns value when no options are provided", () => {
+            expect(guard("hello")).toBe("hello");
+            expect(guard(42)).toBe(42);
+            expect(guard(null)).toBe(null);
+        });
+
+        it("NaN with label includes label in message", () => {
+            expect(() => guard.number(NaN, { label: "score" })).toThrowError(
+                "[score]: Expected a valid number, got NaN"
+            );
+        });
+    });
 });

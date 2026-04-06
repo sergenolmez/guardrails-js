@@ -2,9 +2,22 @@
     "name": "guardrails-js",
     "version": "0.2.0",
     "description": "Inline runtime validation for JavaScript and TypeScript",
+    "author": "Sergen Olmez",
     "main": "dist/index.js",
-    "module": "dist/index.js",
+    "module": "dist/index.mjs",
     "types": "dist/index.d.ts",
+    "exports": {
+        ".": {
+            "import": {
+                "types": "./dist/index.d.mts",
+                "default": "./dist/index.mjs"
+            },
+            "require": {
+                "types": "./dist/index.d.ts",
+                "default": "./dist/index.js"
+            }
+        }
+    },
     "files": [
         "dist"
     ],
@@ -21,7 +34,18 @@
         "typescript",
         "javascript"
     ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/sergenolmez/guardrails-js"
+    },
+    "homepage": "https://github.com/sergenolmez/guardrails-js#readme",
+    "bugs": {
+        "url": "https://github.com/sergenolmez/guardrails-js/issues"
+    },
     "license": "MIT",
+    "engines": {
+        "node": ">=16"
+    },
     "devDependencies": {
         "tsup": "^8.0.0",
         "typescript": "^5.0.0",

@@ -58,6 +58,14 @@ export function guard<T>(value: T, options: GuardOptions<T> = {}): T {
 
     // Number Bounds Validation
     if (typeof value === "number") {
+        if (Number.isNaN(value)) {
+            const msg = message || `Expected a valid number, got NaN`;
+            throw new GuardError(label ? `[${label}]: ${msg}` : msg);
+        }
+        if (!Number.isFinite(value)) {
+            const msg = message || `Expected a finite number, got ${value}`;
+            throw new GuardError(label ? `[${label}]: ${msg}` : msg);
+        }
         if (min !== undefined && value < min) {
             const msg = message || `Expected value to be at least ${min}, got ${value}`;
             throw new GuardError(label ? `[${label}]: ${msg}` : msg);
@@ -76,9 +84,17 @@ export function guard<T>(value: T, options: GuardOptions<T> = {}): T {
         }
     }
 
-    if (custom && !custom(value)) {
-        const msg = message || `Custom validation failed`;
-        throw new GuardError(label ? `[${label}]: ${msg}` : msg);
+    if (custom) {
+        try {
+            if (!custom(value)) {
+                const msg = message || `Custom validation failed`;
+                throw new GuardError(label ? `[${label}]: ${msg}` : msg);
+            }
+        } catch (err) {
+            if (err instanceof GuardError) throw err;
+            const msg = message || `Custom validation failed: ${(err as Error).message}`;
+            throw new GuardError(label ? `[${label}]: ${msg}` : msg);
+        }
     }
 
     return value;
