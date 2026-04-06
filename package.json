@@ -1,0 +1,30 @@
+{
+    "name": "guardrails-js",
+    "version": "0.1.0",
+    "description": "Inline runtime validation for JavaScript and TypeScript",
+    "main": "dist/index.js",
+    "module": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "build": "tsup src/index.ts --format esm,cjs --dts",
+        "test": "vitest run",
+        "dev": "vitest",
+        "prepublishOnly": "npm run build && npm test"
+    },
+    "keywords": [
+        "validation",
+        "runtime",
+        "guard",
+        "typescript",
+        "javascript"
+    ],
+    "license": "MIT",
+    "devDependencies": {
+        "tsup": "^8.0.0",
+        "typescript": "^5.0.0",
+        "vitest": "^1.0.0"
+    }
+}
